@@ -1,0 +1,49 @@
+﻿@page "/account/get-users"
+@inherits UsersBase
+<h3>Users</h3>
+
+
+<button type="submit" class="btn btn-primary" @onclick="GetAllUsers">GetAllUsers</button>
+
+@{
+    if (Users != null || Users?.Count > 0)
+    {
+        <table>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Username</th>
+                <th>Gender</th>
+                <th>Bio</th>
+                <th>Age</th>
+                <th>Role</th>
+                <th>CreatedAt</th>
+            </tr>
+            @{
+                foreach (var user in Users)
+                {
+                    <tr>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Username</td>
+                        <td>@user.Gender</td>
+                        <td>@user.Bio</td>
+                        <td>@user.Age</td>
+                        <td>@user.Role</td>
+                        <td>@user.CreatedDateTime</td>
+
+                    </tr>
+                }
+            }
+
+        </table>
+
+    }
+    else
+    {
+        <h1>No Data</h1>
+    }
+
+}
+
+
