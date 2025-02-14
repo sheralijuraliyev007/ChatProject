@@ -28,7 +28,7 @@ namespace Chat.Blazor.Repositories.Contracts
 
             if (statusCode == HttpStatusCode.OK)
             {
-                response = (await result.Content.ReadFromJsonAsync<List<UserDto>>())!;
+                response = (await result.Content.ReadFromJsonAsync<List<ChatDto>>())!;
 
             }
 
@@ -43,7 +43,7 @@ namespace Chat.Blazor.Repositories.Contracts
 
         public async Task<Tuple<HttpStatusCode, object>> GetUserChat(Guid toUserId)
         {
-            var url = "api/users/user_id/Chats";
+            var url = "api/users/user_id/chats";
 
             await AddTokenToHeader();
 

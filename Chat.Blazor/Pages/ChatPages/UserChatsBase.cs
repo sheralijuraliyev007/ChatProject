@@ -29,10 +29,9 @@ namespace Chat.Blazor.Pages.ChatPages
         {
             var (statusCode, response) = await ChatIntegration.GetUserChats();
 
-            if (statusCode==HttpStatusCode.OK)
+            if (statusCode == HttpStatusCode.OK)
             {
                 Chats = (List<ChatDto>)response;
-
             }
 
         }
@@ -47,7 +46,7 @@ namespace Chat.Blazor.Pages.ChatPages
             var userChat = chat.UserChats?.First(u => u.UserId == userId);
 
 
-            NavigationManager.NavigateTo($"/see-chat{userChat.ToUserId}");
+            NavigationManager.NavigateTo($"/see-chat/{userChat.ToUserId}");
         }
 
         private async Task<Guid> GetUserId()
