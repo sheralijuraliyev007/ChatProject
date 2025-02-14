@@ -1,0 +1,39 @@
+﻿@page "/user-chats"
+@attribute [Authorize]
+@inherits UserChatsBase
+
+<h1>UserChats</h1>
+
+
+
+@{
+    if (Chats.Count>0)
+    {
+        <table>
+            <tr>
+                <th>Chat Name</th>
+                <th>See chat</th>
+
+            </tr>
+            @{
+                foreach (var chat in Chats)
+                {
+                    <tr>
+                        <td>@chat.ChatNames[0]</td>
+                        <td>
+                            <button @onclick="async () => {await SeeChat(chat.Id);}"  class="btn btn-primary">See chat </button> 
+                        </td>
+                    </tr>
+                }
+            }
+
+
+
+        </table>
+    }
+
+    else
+    {
+        <h1>You don't have chats yet!</h1>
+    }
+}

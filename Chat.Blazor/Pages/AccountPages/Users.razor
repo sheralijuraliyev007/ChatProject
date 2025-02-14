@@ -1,0 +1,53 @@
+﻿@page "/account/users"
+@using System.Net
+@using Chat.Blazor.DTOs
+@using Chat.Blazor.Repositories.Contracts
+@using Microsoft.AspNetCore.Authorization
+@inject IUserIntegration UserIntegration
+
+@inherits UsersBase
+@attribute [Authorize]
+
+
+
+
+
+@if (Users is not null || Users?.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Firstname</th>
+            <th>Username</th>
+            <th>Gender</th>
+        </tr>
+        
+        @{
+            foreach (var user in Users)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.Username</td>
+                    <td>@user.Gender</td>
+                </tr>
+            }
+        }
+        
+    </table>
+}
+
+
+
+
+
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+
+@code {
+
+
+}

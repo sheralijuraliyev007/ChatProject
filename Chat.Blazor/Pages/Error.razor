@@ -1,0 +1,11 @@
+﻿@page "/error/{response}"
+<h3>Error</h3>
+
+
+<h2>Error is @Response</h2>
+
+
+@code {
+    [Parameter]
+    public string Response { get; set; }
+}

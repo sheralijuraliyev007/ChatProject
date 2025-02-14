@@ -2,17 +2,21 @@
 using Chat.Api.Entities;
 using Chat.Api.Exceptions;
 using Chat.Api.Extensions;
+using Chat.Api.Hubs;
 using Chat.Api.Models;
 using Chat.Api.Repositories;
- 
+using Microsoft.AspNetCore.SignalR;
+
 
 namespace Chat.Api.Managers
 {
-    public class MessageManager(IUnitOfWork unitOfWork, IHostEnvironment hostingEnvironment)
+    public class MessageManager(IUnitOfWork unitOfWork, IHostEnvironment hostingEnvironment, IHubContext<ChatHub> context)
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         
         private readonly IHostEnvironment _hostingEnvironment = hostingEnvironment;
+
+        private readonly IHubContext<ChatHub> _hubContext = context;
 
 
         //Admin Action
@@ -71,6 +75,32 @@ namespace Chat.Api.Managers
             };
 
             await _unitOfWork.MessageRepository.AddMessage(message);
+
+
+            await _hubContext.Clients.All.SendAsync("NewMessage", message.ParseToDto());
+
+
+            var connection1 = ConnectionIdService.ConnectionIds.FirstOrDefault(c => c.Item1 == userId);
+
+            var userChat = await _unitOfWork.UserChatRepository.GetUserChat(userId, chatId);
+
+
+            var connection2 = ConnectionIdService.ConnectionIds.FirstOrDefault(c => c.Item1 == userChat.ToUserId);
+
+
+
+            if (!string.IsNullOrEmpty(connection1?.Item2))
+            {
+                await _hubContext.Clients.Client(connection1.Item2).SendAsync("NewMessage", message.ParseToDto());
+
+            }
+
+
+            if (!string.IsNullOrEmpty(connection2?.Item2))
+            {
+                await _hubContext.Clients.Client(connection2.Item2).SendAsync("NewMessage", message.ParseToDto());
+
+            }
 
             return message.ParseToDto();
         }

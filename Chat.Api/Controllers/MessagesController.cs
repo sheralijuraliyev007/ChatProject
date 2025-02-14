@@ -81,7 +81,7 @@ namespace Chat.Api.Controllers
 
         [Authorize/*(Roles = "admin,user")*/]
         [HttpPost("send-text-message")]
-        public async Task<IActionResult> SendTextMessage(Guid chatId, TextModel model)
+        public async Task<IActionResult> SendTextMessage(Guid chatId, [FromBody] TextModel model)
         {
             try
             {

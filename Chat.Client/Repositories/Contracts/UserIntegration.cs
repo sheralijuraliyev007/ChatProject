@@ -11,9 +11,10 @@ namespace Chat.Client.Repositories.Contracts
         {
             string url = "/api/Users/login";
 
-            var r = await httpClient.GetAsync("/api/profile");
+            //var r = await httpClient.GetAsync("/api/profile");
             
-           var baseUri = httpClient.BaseAddress;
+            
+            //var baseUri = httpClient.BaseAddress;
             var result = await httpClient.PostAsJsonAsync(url, loginUser);
             
             Console.WriteLine( result.StatusCode);

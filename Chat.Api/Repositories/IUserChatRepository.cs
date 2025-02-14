@@ -9,5 +9,7 @@ namespace Chat.Api.Repositories
         Task DeleteUserChat(UserChat userChat);
 
         Task InUserChat(Guid chatId, Guid userId);
+
+        Task<UserChat> GetUserChat(Guid chatId, Guid userId);
     }
 }

@@ -1,0 +1,49 @@
+﻿@page "/account/register"
+<h3>Register</h3>
+
+
+@using Chat.Blazor.Models.UserModels
+@using Chat.Blazor.Repositories.Contracts
+@inject IUserIntegration UserIntegration
+@inherits RegisterBase
+
+
+
+<form @onsubmit="RegisterClicked" class="p-4 rounded shadow-sm bg-light" style="max-width: 400px; margin: auto;">
+    <div class="mb-3">
+        <label for="firstname" class="form-label">Firstname</label>
+        <input @bind="CreateUserModel.Firstname" id="firstname" class="form-control" type="text" placeholder="Enter your Firstname" required>
+    </div>
+    <div class="mb-3">
+        <label for="lastname" class="form-label">Lastname</label>
+        <input @bind="CreateUserModel.Lastname" id="lastname" class="form-control" type="text" placeholder="Enter your Lastname" >
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input @bind="CreateUserModel.Username" id="username" class="form-control" type="text" placeholder="Enter your Username" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input @bind="CreateUserModel.Password" id="password" class="form-control" type="password" placeholder="Enter your password" required>
+    </div>
+    <div class="mb-3">
+        <label for="confirm-psw" class="form-label">Confirm Password</label>
+        <input @bind="CreateUserModel.ConfirmPassword" id="confirm-psw" class="form-control" type="password" placeholder="Enter your password again" required>
+    </div>
+    
+    <select @bind="CreateUserModel.Gender" name="Genders" id="Genders">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+
+    <button style="margin-top:30px" class="btn btn-primary w-100" type="submit">Login</button>
+</form>
+
+@code {
+
+
+
+
+}
+

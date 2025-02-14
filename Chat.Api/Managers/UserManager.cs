@@ -126,8 +126,6 @@ namespace Chat.Api.Managers
             }
 
 
-
-
             return _jwtManager.GenerateToken(user);
 
         }
@@ -166,8 +164,14 @@ namespace Chat.Api.Managers
             }
         }
 
-        private string GetGender(string gender)
+        private string GetGender(string? gender)
         {
+
+            if (gender == null)
+            {
+                return UserConstants.Male; 
+            }
+
             bool checkingForGenderExist = gender.ToLower() == UserConstants.Female.ToLower() ||
                                           gender.ToLower() == UserConstants.Male.ToLower();
 

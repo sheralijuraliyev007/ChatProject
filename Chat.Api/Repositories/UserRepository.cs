@@ -19,7 +19,7 @@ namespace Chat.Api.Repositories
 
         public async Task<User> GetUserByIdAsync(Guid id)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(u=>u.UserChats).SingleOrDefaultAsync(u => u.Id == id);
 
             if (user is null)
             {

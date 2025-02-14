@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Api", "Chat.Api\Chat.Api.csproj", "{34626E2B-AEE2-4B87-A3F9-A2667AC50017}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Client", "Chat.Client\Chat.Client.csproj", "{14B897E7-5F28-4C9F-88FC-C93604C9E9E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Blazor", "Chat.Blazor\Chat.Blazor.csproj", "{709C2D57-9387-4B4A-AEDE-025399D2740B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{34626E2B-AEE2-4B87-A3F9-A2667AC50017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34626E2B-AEE2-4B87-A3F9-A2667AC50017}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34626E2B-AEE2-4B87-A3F9-A2667AC50017}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14B897E7-5F28-4C9F-88FC-C93604C9E9E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14B897E7-5F28-4C9F-88FC-C93604C9E9E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14B897E7-5F28-4C9F-88FC-C93604C9E9E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14B897E7-5F28-4C9F-88FC-C93604C9E9E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709C2D57-9387-4B4A-AEDE-025399D2740B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709C2D57-9387-4B4A-AEDE-025399D2740B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709C2D57-9387-4B4A-AEDE-025399D2740B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709C2D57-9387-4B4A-AEDE-025399D2740B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

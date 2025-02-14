@@ -58,5 +58,16 @@ namespace Chat.Api.Repositories
                 throw new Exception("Not found chat");
         }
 
+        public async Task<UserChat> GetUserChat(Guid chatId, Guid userId)
+        {
+            var userChat = await _context.UsersChats.SingleOrDefaultAsync(c => c.ChatId == chatId && c.UserId == userId);
+
+            if (userChat is null)
+            {
+                throw new Exception("Not found chat");
+            }
+
+            return userChat;
+        }
     }
 }

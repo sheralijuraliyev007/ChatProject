@@ -1,5 +1,6 @@
 using Chat.Api.Context;
 using Chat.Api.Helpers;
+using Chat.Api.Hubs;
 using Chat.Api.Managers;
 using Chat.Api.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,6 +57,30 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuerSigningKey = true
     };
+
+
+
+    options.Events = new JwtBearerEvents()
+    {
+        OnMessageReceived = context =>
+        {
+            var token = context.Token;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                token = context.Request.Query["token"];
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Token = token;
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+    };
+
+
 });
 
 
@@ -73,6 +98,7 @@ builder.Services.AddScoped<JWTManager>();
 builder.Services.AddScoped<MessageManager>();
 builder.Services.AddScoped<UserHelper>();
 builder.Services.AddScoped<MemoryCacheManager>();
+builder.Services.AddSignalR();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -123,6 +149,9 @@ app.UseHttpsRedirection();
 
 
 app.UseAuthorization();
+
+
+app.MapHub<ChatHub>("chat-hub");
 
 app.MapControllers();
 
