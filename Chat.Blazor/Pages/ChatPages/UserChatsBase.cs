@@ -45,8 +45,11 @@ namespace Chat.Blazor.Pages.ChatPages
 
             var userChat = chat.UserChats?.First(u => u.UserId == userId);
 
+            
 
             NavigationManager.NavigateTo($"/see-chat/{userChat.ToUserId}");
+
+            NavigationManager.Refresh(true);
         }
 
         private async Task<Guid> GetUserId()

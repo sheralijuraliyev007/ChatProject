@@ -21,9 +21,9 @@ namespace Chat.Blazor.Pages.ChatPages
 
         protected List<MessageDto> Messages = new();
 
-        protected ChatDto ChatDto { get; set; }=new ();
+        protected ChatDto ChatDto { get; set; }
 
-        
+
 
         protected string Text { get; set; } 
 
@@ -41,7 +41,7 @@ namespace Chat.Blazor.Pages.ChatPages
 
             if (statusCode==HttpStatusCode.OK)
             {
-                ChatDto=(ChatDto)response;
+                ChatDto = (ChatDto)response;
             }
 
             var (statusCode2, response2) = await ChatIntegration.GetChatMessages(ChatDto.Id);

@@ -1,4 +1,4 @@
-﻿@page "/chatting"
+﻿@inherits ChattingPageBase
 
 <!DOCTYPE html>
 <html lang="en">
@@ -174,29 +174,26 @@ body {
         <div class="sidebar-header">
             <h2>Chats</h2>
         </div>
-        <div class="contact-list">
-            <div class="contact">
-                <div class="contact-avatar">A</div>
-                <div class="contact-info">
-                    <h4>John Doe</h4>
-                    <p>Last message...</p>
-                </div>
-            </div>
-            <div class="contact">
-                <div class="contact-avatar">B</div>
-                <div class="contact-info">
-                    <h4>Jane Smith</h4>
-                    <p>Last message...</p>
-                </div>
-            </div>
-            <div class="contact">
-                <div class="contact-avatar">C</div>
-                <div class="contact-info">
-                    <h4>Mike Ross</h4>
-                    <p>Last message...</p>
-                </div>
-            </div>
-        </div>
+        
+        @{
+            if (Chats.Count>0)
+            {
+                foreach (var chat in Chats)
+                {
+                    <div class="contact-list">
+                        <div class="contact">
+                            <div class="contact-avatar">@chat.!ChatNames[0].ToCharArray()[0]</div>
+                            <div class="contact-info">
+                                <h4>@chat.!ChatNames[0]</h4>
+                                <p>@chat.Messages?.Last().Text</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+
     </div>
     
 
@@ -204,20 +201,39 @@ body {
         <div class="chat-header">
             <h3>John Doe</h3>
         </div>
+        
         <div class="chat-body">
-            <div class="message left">
-                <div class="message-content">Hello, how are you?</div>
-            </div>
-            <div class="message right">
-                <div class="message-content">I'm good, thanks! How about you?</div>
-            </div>
-            <div class="message left">
-                <div class="message-content">Doing well! What are you up to?</div>
-            </div>
+
+            @{
+
+                if (Messages != null || Messages.Count > 0)
+                {
+
+                    foreach (var message in Messages)
+                    {
+
+                        if (Username != message.FromUserName)
+                        {
+                            <div class="message left">
+                                <div class="message-content">@message.Text</div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="message right">
+                                <div class="message-content">@message.Text</div>
+                            </div>
+                        }
+
+                    }
+
+                }
+            }
         </div>
+
         <div class="chat-footer">
-            <input type="text" placeholder="Type a message..." class="message-input">
-            <button class="send-button">Send</button>
+            <input type="text" @bind="Text" @onkeyup="Pressed" placeholder="Type a message..." class="message-input">
+            <button class="send-button" @onclick="SendMessage">Send</button>
         </div>
     </div>
     </div>
