@@ -181,11 +181,18 @@ body {
                 foreach (var chat in Chats)
                 {
                     <div class="contact-list">
-                        <div class="contact">
+                        <div class="contact" @onclick="async () => {await SelectChat(chat.Id); }">
                             <div class="contact-avatar">@chat.!ChatNames[0].ToCharArray()[0]</div>
                             <div class="contact-info">
                                 <h4>@chat.!ChatNames[0]</h4>
-                                <p>@chat.Messages?.Last().Text</p>
+                                @{
+                                    if (Messages.Any())
+                                    {
+                                        var lastMessage = Messages.Last();
+                                            <p>@chat.Messages?.Last().Text</p>
+                                    }
+                                }
+                                
                             </div>
                         </div>
                     </div>
@@ -198,16 +205,19 @@ body {
     
 
     <div class="chat-window">
-        <div class="chat-header">
-            <h3>John Doe</h3>
-        </div>
         
-        <div class="chat-body">
+        
+    @{
 
-            @{
+        if (Messages.Count > 0)
+        {
+            <div class="chat-header">
+                <h3>John Doe</h3>
+            </div>
 
-                if (Messages != null || Messages.Count > 0)
-                {
+            <div class="chat-body">
+
+                @{
 
                     foreach (var message in Messages)
                     {
@@ -226,15 +236,28 @@ body {
                         }
 
                     }
-
                 }
-            }
-        </div>
 
-        <div class="chat-footer">
-            <input type="text" @bind="Text" @onkeyup="Pressed" placeholder="Type a message..." class="message-input">
-            <button class="send-button" @onclick="SendMessage">Send</button>
-        </div>
+            </div>
+
+            <div class="chat-footer">
+                <input type="text" @bind="Text" @onkeyup="Pressed" placeholder="Type a message..." class="message-input">
+                <button class="send-button" @onclick="SendMessage">Send</button>
+            </div>
+
+        }
+
+        else
+        {
+            <div class="chat-header">
+                <h3>John Doe</h3>
+            </div>
+            <div class="chat-body">
+                <p>Select chat</p>
+            </div>
+
+        }
+    }
     </div>
     </div>
 </body>

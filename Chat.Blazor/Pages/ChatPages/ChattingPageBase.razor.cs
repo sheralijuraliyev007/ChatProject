@@ -29,19 +29,28 @@ namespace Chat.Blazor.Pages.ChatPages
 
         protected string? Username { get; set; }
 
+        protected Guid? ChatId { get; set; }
+
 
         protected List<MessageDto> Messages { get; set; } = new();
 
-        protected ChatDto ChatDto { get; set; } = new();
+        protected ChatDto? ChatDto { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
         {
             await DisconnectHub();
             await ConnectToHub();
 
-            ChatDto = Chats[0];
 
-            Messages = ChatDto.Messages;
+            if (ChatId is not null)
+            {
+                ChatDto = Chats.Single(c => c.Id == ChatId);
+
+                Messages = ChatDto.Messages;
+
+            }
+
+
 
             Username = await GetUserInfo();
         }
@@ -101,6 +110,19 @@ namespace Chat.Blazor.Pages.ChatPages
         }
 
 
+        protected async Task SelectChat(Guid chatId)
+        {
+            ChatId=chatId;
+
+
+            ChatDto = Chats.Single(c => c.Id == chatId);
+
+            Messages = ChatDto.Messages;
+
+            StateHasChanged();
+        }
+
+
         private async Task DisconnectHub()
         {
             if (HubConnection is not null)
@@ -109,7 +131,7 @@ namespace Chat.Blazor.Pages.ChatPages
             }
         }
 
-        public async Task Pressed(KeyboardEventArgs e)
+        protected async Task Pressed(KeyboardEventArgs e)
         {
             if (e.Key=="Enter")
             {
