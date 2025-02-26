@@ -77,7 +77,7 @@ namespace Chat.Api.Managers
             await _unitOfWork.MessageRepository.AddMessage(message);
 
 
-            await _hubContext.Clients.All.SendAsync("NewMessage", message.ParseToDto());
+            //await _hubContext.Clients.All.SendAsync("NewMessage", message.ParseToDto());
 
 
             var connection1 = ConnectionIdService.ConnectionIds.FirstOrDefault(c => c.Item1 == userId);

@@ -39,6 +39,8 @@ namespace Chat.Api.Managers
             await Set();
 
 
+
+
             return users.ParseToDtos();
         }
 

@@ -38,7 +38,7 @@ namespace Chat.Blazor.Pages.AccountPages
                 NavigationManager.Refresh(true);
 
                 
-
+                NavigationManager.NavigateTo("/user-chats");
             }
 
             else if (statusCode==HttpStatusCode.BadRequest)

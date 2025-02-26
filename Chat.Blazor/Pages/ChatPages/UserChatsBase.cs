@@ -27,6 +27,8 @@ namespace Chat.Blazor.Pages.ChatPages
 
         protected override async Task OnInitializedAsync()
         {
+            
+
             var (statusCode, response) = await ChatIntegration.GetUserChats();
 
             if (statusCode == HttpStatusCode.OK)

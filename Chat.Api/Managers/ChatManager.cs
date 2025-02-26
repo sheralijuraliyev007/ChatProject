@@ -24,12 +24,18 @@ namespace Chat.Api.Managers
         {
             var chats = await _unitOfWork.ChatRepository.GetAllUserChats(userId);
 
+
+
+
+
             return chats.ParseToDtos();
         }
 
         public async Task<ChatDto> GetUserChatById(Guid userId, Guid chatId)
         {
             var chat = await _unitOfWork.ChatRepository.GetUserChatById(userId, chatId);
+
+
 
             return chat.ParseToDto();
         }

@@ -11,23 +11,24 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Chat.Blazor.Pages.ChatPages
 {
-    public class ChattingPageBase:ComponentBase
+    public class ChattingPageBase : ComponentBase
     {
         [Parameter] public required List<ChatDto> Chats { get; set; }
 
-        [Inject]  IChatIntegration ChatIntegration { get; set; }
+        [Inject] IChatIntegration ChatIntegration { get; set; }
 
         [Inject] public AuthenticationStateProvider StateProvider { get; set; }
 
-        [Inject]
-        StorageService StorageService { get; set; }
+        [Inject] StorageService StorageService { get; set; }
 
         private HubConnection? HubConnection { get; set; }
 
 
         protected string Text { get; set; }
 
-        protected string? Username { get; set; }
+        protected bool IsSelected { get; set; }
+
+    protected string? Username { get; set; }
 
         protected Guid? ChatId { get; set; }
 
@@ -53,6 +54,7 @@ namespace Chat.Blazor.Pages.ChatPages
 
 
             Username = await GetUserInfo();
+            
         }
 
 
@@ -64,7 +66,7 @@ namespace Chat.Blazor.Pages.ChatPages
 
             var user = state.User;
 
-            var username = user.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var username = user.Claims.First(c => c.Type == ClaimTypes.Name).Value;
 
             return username;
         }
@@ -77,8 +79,6 @@ namespace Chat.Blazor.Pages.ChatPages
             if (statusCode == HttpStatusCode.OK)
             {
                 Text = string.Empty;
-
-                //NavigationManager.Refresh(true);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Chat.Blazor.Pages.ChatPages
 
                     HubConnection = new HubConnectionBuilder().
                         WithUrl($"https://localhost:7156/chat-hub?token={token}").Build();
-                }
+                } 
 
             }
 
@@ -110,14 +110,22 @@ namespace Chat.Blazor.Pages.ChatPages
         }
 
 
-        protected async Task SelectChat(Guid chatId)
+        protected async Task SelectChat(Guid chatId, bool isSelected = false)
         {
+            
+            
             ChatId=chatId;
 
 
             ChatDto = Chats.Single(c => c.Id == chatId);
 
             Messages = ChatDto.Messages;
+            if (chatId!=Guid.Empty)
+            {
+                isSelected = true;
+            }
+            
+            IsSelected = isSelected;
 
             StateHasChanged();
         }
@@ -138,5 +146,7 @@ namespace Chat.Blazor.Pages.ChatPages
                 await SendMessage();
             }
         }
+
+
     }
 }

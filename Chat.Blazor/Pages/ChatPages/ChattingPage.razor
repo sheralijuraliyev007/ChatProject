@@ -182,14 +182,13 @@ body {
                 {
                     <div class="contact-list">
                         <div class="contact" @onclick="async () => {await SelectChat(chat.Id); }">
-                            <div class="contact-avatar">@chat.!ChatNames[0].ToCharArray()[0]</div>
+                            <div class="contact-avatar">@chat.ChatNames?[0].ToCharArray()[0]</div>
                             <div class="contact-info">
-                                <h4>@chat.!ChatNames[0]</h4>
+                                <h4>@chat.ChatNames?[0]</h4>
                                 @{
                                     if (Messages.Any())
                                     {
-                                        var lastMessage = Messages.Last();
-                                            <p>@chat.Messages?.Last().Text</p>
+                                        <p>@chat.Messages?.Last().Text</p>
                                     }
                                 }
                                 
@@ -212,7 +211,7 @@ body {
         if (Messages.Count > 0)
         {
             <div class="chat-header">
-                <h3>John Doe</h3>
+                <h3>cha</h3>
             </div>
 
             <div class="chat-body">
@@ -222,15 +221,15 @@ body {
                     foreach (var message in Messages)
                     {
 
-                        if (Username != message.FromUserName)
+                        if (Username == message.FromUserName)
                         {
-                            <div class="message left">
+                            <div class="message right">
                                 <div class="message-content">@message.Text</div>
                             </div>
                         }
                         else
                         {
-                            <div class="message right">
+                            <div class="message left">
                                 <div class="message-content">@message.Text</div>
                             </div>
                         }
@@ -240,10 +239,7 @@ body {
 
             </div>
 
-            <div class="chat-footer">
-                <input type="text" @bind="Text" @onkeyup="Pressed" placeholder="Type a message..." class="message-input">
-                <button class="send-button" @onclick="SendMessage">Send</button>
-            </div>
+
 
         }
 
@@ -257,6 +253,20 @@ body {
             </div>
 
         }
+
+        if (IsSelected)
+        {
+            <div class="chat-footer">
+                <input type="text" @bind="Text" @onkeyup="Pressed" placeholder="Type a message..." class="message-input">
+                <button class="send-button" @onclick="SendMessage">Send</button>
+            </div>
+
+            
+        }
+        
+        
+        
+
     }
     </div>
     </div>
