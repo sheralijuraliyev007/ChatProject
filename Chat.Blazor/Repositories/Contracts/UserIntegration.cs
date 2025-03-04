@@ -113,7 +113,7 @@ namespace Chat.Blazor.Repositories.Contracts
                 response = await result.Content.ReadFromJsonAsync<string>();
             }
 
-            return new(statusCode, response);
+            return new(statusCode, response!);
         }
 
         public async Task<Tuple<HttpStatusCode, object?>> UpdateAge(byte age)

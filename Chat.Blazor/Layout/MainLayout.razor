@@ -17,7 +17,9 @@
                 }
                 else
                 {
-                    <button type="submit" class="btn btn-outline-danger" @onclick="Login">Login</button>
+                    <button type="submit" class="btn btn-outline-secondary" @onclick="Register">Register</button>
+                    <button type="submit" class="btn btn-outline-primary" @onclick="Login">Login</button>
+
                 }
             }
             
@@ -71,5 +73,10 @@
     private void  Login()
     {
         NavigationManager.NavigateTo("/account/login");
+    }
+
+    private void  Register()
+    {
+        NavigationManager.NavigateTo("/account/register");
     }
 }

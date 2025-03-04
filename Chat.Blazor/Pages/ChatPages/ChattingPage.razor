@@ -176,26 +176,44 @@ body {
         </div>
         
         @{
-            if (Chats.Count>0)
+            if (Chats is not null)
             {
-                foreach (var chat in Chats)
-                {
-                    <div class="contact-list">
-                        <div class="contact" @onclick="async () => {await SelectChat(chat.Id); }">
-                            <div class="contact-avatar">@chat.ChatNames?[0].ToCharArray()[0]</div>
-                            <div class="contact-info">
-                                <h4>@chat.ChatNames?[0]</h4>
-                                @{
-                                    if (Messages.Any())
-                                    {
-                                        <p>@chat.Messages?.Last().Text</p>
-                                    }
-                                }
-                                
+                <div class="contact-list">
+                    
+                    @if (Chats.Count > 0)
+                    {
+                        @foreach (var chat in Chats)
+                        {
+    
+                            <div class="contact" @onclick="async () => {await SelectChat(chat.Id); }">
+                                <div class="contact-avatar">@chat?.ChatName</div>
+                                <div class="contact-info">
+                                    <h4>@chat?.ChatName</h4>
+                                    <p>@chat?.Messages?.Last().Text</p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                }
+    
+                        }
+                    }
+
+                    <br/>
+                    <p>Others</p>
+                    @if (Users is not null)
+                    {
+                        foreach (var user in Users)
+                        {
+                            <div class="contact" @onclick="async () => { await CreateChat(user.Id); }">
+                                <div class="contact-avatar">@user.FirstName</div>
+                                <div class="contact-info">
+                                    <h4>@user.FirstName @user.LastName</h4>
+                                    @*<p>@chat.Messages?.Last().Text</p>*@
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
             }
         }
 
@@ -208,16 +226,15 @@ body {
         
     @{
 
-        if (Messages.Count > 0)
+        if (ChatDto is not null)
         {
             <div class="chat-header">
-                <h3>cha</h3>
+                <h3>@ChatDto?.ChatName</h3>
             </div>
-
             <div class="chat-body">
-
-                @{
-
+                @if (Messages is not null|| Messages?.Count > 0)
+                {
+                    
                     foreach (var message in Messages)
                     {
 
@@ -236,6 +253,11 @@ body {
 
                     }
                 }
+                else
+                {
+                    <p>There's no messages!</p>
+                }
+                
 
             </div>
 

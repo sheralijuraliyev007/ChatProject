@@ -36,6 +36,11 @@ namespace Chat.Blazor.Pages.ChatPages
                 Chats = (List<ChatDto>)response;
             }
 
+            else if (statusCode==HttpStatusCode.NoContent)
+            {
+                NavigationManager.NavigateTo("/counter");
+            }
+
         }
 
         protected async Task SeeChat(Guid chatId)

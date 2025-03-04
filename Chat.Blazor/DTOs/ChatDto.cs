@@ -13,5 +13,7 @@ namespace Chat.Blazor.DTOs
         public List<UserChatDto>? UserChats { get; set; }
 
         public List<MessageDto>? Messages { get; set; }
+
+        public string? ChatName { get; set; }
     }
 }

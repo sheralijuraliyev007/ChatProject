@@ -100,6 +100,7 @@ namespace Chat.Api.Managers
             user.PasswordHash=passwordHash;
 
             _unitOfWork.UserRepository.AddUser(user);
+            await Set();
 
             return "Registered successfully!!!";
         }

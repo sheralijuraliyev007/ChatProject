@@ -12,5 +12,8 @@ namespace Chat.Blazor.Repositories.Contracts
         Task<Tuple<HttpStatusCode, object>> GetChatMessages(Guid chatId);
 
         Task<Tuple<HttpStatusCode, object>> SendTextMessage(Guid chatId, string text);
+
+
+
     }
 }

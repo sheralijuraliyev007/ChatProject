@@ -82,7 +82,7 @@ namespace Chat.Api.Managers
 
             var connection1 = ConnectionIdService.ConnectionIds.FirstOrDefault(c => c.Item1 == userId);
 
-            var userChat = await _unitOfWork.UserChatRepository.GetUserChat(userId, chatId);
+            var userChat = await _unitOfWork.UserChatRepository.GetUserChat(chatId:chatId,userId:userId);
 
 
             var connection2 = ConnectionIdService.ConnectionIds.FirstOrDefault(c => c.Item1 == userChat.ToUserId);

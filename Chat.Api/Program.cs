@@ -131,7 +131,7 @@ app.UseCors(options =>
     options.AllowAnyOrigin();
 });
 
-//app.UseCors();
+app.UseCors();
 
 
 
